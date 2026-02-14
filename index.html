@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Inkverse | Explore the Universe Written in Ink</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&family=Open+Sans&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body class="home-page">
+  <div class="stars"></div>
+  <div class="twinkling"></div>
+  <header>
+    <div class="logo">INKVERSE</div>
+    <button class="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    <nav>
+      <a href="#home">Home</a>
+      <a href="books.html">Books</a>
+      <a href="members.html">Members</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="nav-overlay"></div>
+  </header>
+  <section class="hero">
+    <h1>Welcome to <span>Inkverse</span></h1>
+    <p>Explore the universe written in ink.</p>
+    <button id="enter-btn">Enter Library</button>
+  </section>
+  <footer>
+    <p>© 2026 Inkverse | Crafted with imagination & code</p>
+  </footer>
+  <script>
+    document.getElementById('enter-btn').addEventListener('click', () => {
+      window.location.href = 'books.html';
+    });
+    const hamburger = document.querySelector('.hamburger');
+    const nav = document.querySelector('nav');
+    const navOverlay = document.querySelector('.nav-overlay');
+    const navLinks = document.querySelectorAll('nav a');
+
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      nav.classList.toggle('active');
+      navOverlay.classList.toggle('active');
+      document.body.style.overflow = nav.classList.contains('active') ? 'hidden' : '';
+    });
+    navOverlay.addEventListener('click', closeMenu);
+    navLinks.forEach(link => link.addEventListener('click', closeMenu));
+
+    function closeMenu() {
+      hamburger.classList.remove('active');
+      nav.classList.remove('active');
+      navOverlay.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    window.addEventListener('scroll', () => {
+      if (window.innerWidth <= 768) {
+        closeMenu();
+      }
+    });
+
+  </script>
+</body>
+
+</html>

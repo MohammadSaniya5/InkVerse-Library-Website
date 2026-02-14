@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inkverse | Books</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&family=Open+Sans&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="stars"></div>
+  <div class="twinkling"></div>
+  <header>
+    <div class="logo">INKVERSE</div>
+    <button class="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="books.html">Books</a>
+      <a href="members.html">Members</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="nav-overlay"></div>
+  </header>
+  <section class="books-section">
+    <h2>Explore Our Digital Library</h2>
+
+    <div class="search-bar">
+      <input type="text" id="searchInput" placeholder="Search by title or author...">
+    </div>
+
+    <div class="book-container" id="bookContainer">
+    </div>
+  </section>
+  <div id="borrowModal" class="modal" style="display:none;">
+    <div class="modal-content">
+      <img id="modalCover" src="" alt="Book Cover" style="width:100px;border-radius:10px;">
+      <h3 id="modalTitle"></h3>
+      <p id="modalAuthor"></p>
+      <input type="text" id="borrowName" placeholder="Your Name"
+        style="width:90%;padding:8px;margin:5px 0;border-radius:8px;border:none;">
+      <input type="email" id="borrowEmail" placeholder="Your Email"
+        style="width:90%;padding:8px;margin:5px 0;border-radius:8px;border:none;">
+      <input type="number" id="borrowDays" placeholder="Days to Keep" min="1"
+        style="width:90%;padding:8px;margin:5px 0;border-radius:8px;border:none;">
+      <div class="modal-buttons" style="margin-top:10px;">
+        <button id="confirmBorrow" class="confirm"
+          style="padding:8px 15px;border:none;border-radius:8px;background:#00bcd4;color:white;cursor:pointer;">Borrow</button>
+        <button id="cancelBorrow" class="cancel"
+          style="padding:8px 15px;border:none;border-radius:8px;background:#ccc;color:black;cursor:pointer;">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const books = [
+      { id: 1, title: "Harry Potter and the Philosopher's Stone", author: "J. K. Rowling", cover: "images/book1.jpg", tag: "Fantasy" },
+      { id: 2, title: "To Kill a Mockingbird", author: "Harper Lee", cover: "images/book2.jpg", tag: "Southern Gothic" },
+      { id: 3, title: "1984", author: "George Orwell", cover: "images/book3.jpg", tag: "Fiction" },
+      { id: 4, title: "The Great Gatsby", author: "F.Scott Fitzgerald", cover: "images/book4.jpg", tag: "Literary Fiction" },
+      { id: 5, title: "Pride and Prejudice", author: "Jane Austen", cover: "images/book5.jpg", tag: "Romance" },
+      { id: 6, title: "The Alchemist", author: "Paulo Coelho", cover: "images/book6.jpg", tag: "Fantasy" },
+      { id: 7, title: "The Hitchhiker's Guide to the Galaxy", author: "Douglas Adams", cover: "images/book7.jpg", tag: "Comedy" },
+      { id: 8, title: "Animal Farm", author: "George Orwell", cover: "images/book8.jpg", tag: "Political Satire" },
+      { id: 9, title: "And Then There Were None", author: "Agatha Christie", cover: "images/book9.jpg", tag: "Mystery" },
+      { id: 10, title: "A Brief History of Time", author: "Stephen Hawking", cover: "images/book10.jpg", tag: "Non-Fiction" },
+      { id: 11, title: "Don Quixote", author: "Miguel de Cervantes", cover: "images/book11.jpg", tag: "Satire" },
+      { id: 12, title: "The Handmaid's Tale", author: "Margaret Atwood", cover: "images/book12.jpg", tag: "Fiction" }
+    ];
+
+    const container = document.getElementById('bookContainer');
+    const modal = document.getElementById('borrowModal');
+    const modalCover = document.getElementById('modalCover');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalAuthor = document.getElementById('modalAuthor');
+    const confirmBorrowBtn = document.getElementById('confirmBorrow');
+    const cancelBorrowBtn = document.getElementById('cancelBorrow');
+    let selectedBook = null;
+
+    function displayBooks(list) {
+      container.innerHTML = "";
+      list.forEach(book => {
+        container.innerHTML += `
+        <div class="book-card">
+          <img src="${book.cover}" alt="${book.title}">
+          <h3>${book.title}</h3>
+          <p>by ${book.author}</p>
+          <span class="tag">${book.tag}</span>
+          <button onclick="openModal(${book.id})">Borrow</button>
+        </div>
+      `;
+      });
+    }
+
+    function openModal(id) {
+      selectedBook = books.find(b => b.id === id);
+      modalCover.src = selectedBook.cover;
+      modalTitle.textContent = selectedBook.title;
+      modalAuthor.textContent = "by " + selectedBook.author;
+      modal.style.display = 'flex';
+    }
+
+    cancelBorrowBtn.addEventListener('click', () => {
+      modal.style.display = 'none';
+    });
+
+    confirmBorrowBtn.addEventListener('click', () => {
+      const name = document.getElementById('borrowName').value.trim();
+      const email = document.getElementById('borrowEmail').value.trim();
+      const days = parseInt(document.getElementById('borrowDays').value);
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      if (!name || !emailRegex.test(email) || !days) {
+        showPopup(" Please enter a valid name, email, and number of days!", false);
+        return;
+      }
+
+      const borrowDate = new Date();
+      const returnDate = new Date();
+      returnDate.setDate(borrowDate.getDate() + days);
+
+      const records = JSON.parse(localStorage.getItem('borrowRecords')) || [];
+
+      const alreadyBorrowed = records.find(
+        record => record.name === name &&
+          record.email === email &&
+          record.bookTitle === selectedBook.title
+      );
+
+      if (alreadyBorrowed) {
+        showPopup(` You have already borrowed "${selectedBook.title}"!`, false);
+        modal.style.display = 'none';
+        return;
+      }
+
+      const record = {
+        name,
+        email,
+        bookTitle: selectedBook.title,
+        borrowDate: borrowDate.toLocaleDateString(),
+        returnDate: returnDate.toLocaleDateString()
+      };
+
+      records.push(record);
+      localStorage.setItem('borrowRecords', JSON.stringify(records));
+
+      showPopup(` "${selectedBook.title}" borrowed successfully!`, true);
+      modal.style.display = 'none';
+      document.getElementById('borrowName').value = '';
+      document.getElementById('borrowEmail').value = '';
+      document.getElementById('borrowDays').value = '';
+    });
+
+    document.getElementById('searchInput').addEventListener('input', function () {
+      const query = this.value.toLowerCase();
+      const filtered = books.filter(book =>
+        book.title.toLowerCase().includes(query) ||
+        book.author.toLowerCase().includes(query)
+      );
+      displayBooks(filtered);
+    });
+
+    window.addEventListener('scroll', function () {
+      const header = document.querySelector('header');
+      const scrollPos = window.scrollY || document.documentElement.scrollTop;
+      if (scrollPos > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+
+    const hamburger = document.querySelector('.hamburger');
+    const nav = document.querySelector('nav');
+    const navOverlay = document.querySelector('.nav-overlay');
+    const navLinks = document.querySelectorAll('nav a');
+
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      nav.classList.toggle('active');
+      navOverlay.classList.toggle('active');
+      document.body.style.overflow = nav.classList.contains('active') ? 'hidden' : '';
+    });
+
+    navOverlay.addEventListener('click', closeMenu);
+    navLinks.forEach(link => link.addEventListener('click', closeMenu));
+
+    function closeMenu() {
+      hamburger.classList.remove('active');
+      nav.classList.remove('active');
+      navOverlay.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    window.addEventListener('scroll', () => {
+      if (window.innerWidth <= 768) {
+        closeMenu();
+      }
+    });
+
+    function showPopup(message, success = true) {
+      const popup = document.createElement('div');
+      popup.textContent = message;
+      popup.style.position = 'fixed';
+      popup.style.top = '50%';
+      popup.style.left = '50%';
+      popup.style.transform = 'translate(-50%, -50%)';
+      popup.style.padding = '15px 25px';
+      popup.style.borderRadius = '10px';
+      popup.style.background = success ? 'rgba(0, 200, 100, 0.9)' : 'rgba(255, 60, 60, 0.9)';
+      popup.style.color = 'white';
+      popup.style.fontWeight = 'bold';
+      popup.style.boxShadow = '0 0 15px rgba(0,0,0,0.4)';
+      popup.style.zIndex = '2000';
+      popup.style.textAlign = 'center';
+      popup.style.opacity = '0';
+      popup.style.transition = 'opacity 0.3s ease-in-out';
+
+      document.body.appendChild(popup);
+      setTimeout(() => popup.style.opacity = '1', 50);
+      setTimeout(() => {
+        popup.style.opacity = '0';
+        setTimeout(() => popup.remove(), 300);
+      }, 2500);
+    }
+
+    displayBooks(books);
+  </script>
+  <footer>
+    <p>© 2026 Inkverse | Crafted with imagination & code</p>
+  </footer>
+
+  <div id="toast"></div>
+</body>
+
+</html>

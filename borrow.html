@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Inkverse | Borrow List</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&family=Open+Sans&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <div class="stars"></div>
+  <div class="twinkling"></div>
+  <header>
+    <div class="logo">INKVERSE</div>
+    <button class="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="books.html">Books</a>
+      <a href="members.html">Members</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="nav-overlay"></div>
+  </header>
+
+  <section class="borrow-section">
+    <h2>Your Borrow List</h2>
+
+    <div class="borrow-container" id="borrowContainer">
+    </div>
+
+    <div class="borrow-actions">
+      <button id="clearBtn">Clear All</button>
+    </div>
+  </section>
+
+  <script>
+    const borrowContainer = document.getElementById("borrowContainer");
+    let cart = JSON.parse(localStorage.getItem("borrowCart")) || [];
+
+    function displayBorrowedBooks() {
+      borrowContainer.innerHTML = "";
+
+      if (cart.length === 0) {
+        borrowContainer.innerHTML = "<p class='empty-msg'>No books borrowed yet</p>";
+        return;
+      }
+
+      cart.forEach((book, index) => {
+        borrowContainer.innerHTML += `
+          <div class="borrow-card">
+            <img src="${book.cover}" alt="${book.title}">
+            <div class="borrow-info">
+              <h3>${book.title}</h3>
+              <p>${book.author}</p>
+              <button onclick="removeBook(${index})">Remove</button>
+            </div>
+          </div>
+        `;
+      });
+    }
+
+    displayBorrowedBooks();
+    function removeBook(index) {
+      cart.splice(index, 1);
+      localStorage.setItem("borrowCart", JSON.stringify(cart));
+      displayBorrowedBooks();
+    }
+
+    document.getElementById("clearBtn").addEventListener("click", () => {
+      if (confirm("Are you sure you want to clear all borrowed books?")) {
+        localStorage.removeItem("borrowCart");
+        cart = [];
+        displayBorrowedBooks();
+      }
+    });
+
+    const hamburger = document.querySelector('.hamburger');
+    const nav = document.querySelector('nav');
+    const navOverlay = document.querySelector('.nav-overlay');
+    const navLinks = document.querySelectorAll('nav a');
+
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      nav.classList.toggle('active');
+      navOverlay.classList.toggle('active');
+      document.body.style.overflow = nav.classList.contains('active') ? 'hidden' : '';
+    });
+
+    navOverlay.addEventListener('click', closeMenu);
+    navLinks.forEach(link => link.addEventListener('click', closeMenu));
+
+    function closeMenu() {
+      hamburger.classList.remove('active');
+      nav.classList.remove('active');
+      navOverlay.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    window.addEventListener('scroll', () => {
+      if (window.innerWidth <= 768) {
+        closeMenu();
+      }
+    });
+  </script>
+  <footer>
+    <p>© 2026 Inkverse | Crafted with imagination & code</p>
+  </footer>
+
+</body>
+
+</html>

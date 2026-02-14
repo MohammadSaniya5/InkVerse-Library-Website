@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About | Inkverse</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&family=Open+Sans&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <div class="stars"></div>
+  <div class="twinkling"></div>
+  <header>
+    <div class="logo">INKVERSE</div>
+    <button class="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="books.html">Books</a>
+      <a href="members.html">Members</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="nav-overlay"></div>
+  </header>
+  <section class="about-section">
+    <div class="about-content">
+      <h1>Welcome to Inkverse</h1>
+      <p class="intro-text">
+        Inkverse isn’t just a library — it’s a <span class="highlight">universe of stories</span>.<br>
+        Every book here is a star, every reader an explorer.
+      </p>
+
+      <div class="about-box">
+        <h2>Our Story</h2>
+        <p>
+          Born from the idea that imagination has no limits, Inkverse began as a digital galaxy
+          of words. We believe that every page turned is a new world discovered.
+          <br><br>
+          Our mission is to make reading futuristic, artistic, and deeply immersive.
+          From classic novels to modern marvels — each book in Inkverse shines with its own light.
+        </p>
+      </div>
+
+      <div class="about-box">
+        <h2>Our Vision</h2>
+        <p>
+          To reimagine libraries as living digital galaxies — where learning meets creativity.
+          Inkverse aims to bridge the gap between technology and imagination,
+          offering a seamless reading experience that’s both intelligent and inspiring.
+        </p>
+      </div>
+
+      <div class="about-box">
+        <h2>Why Inkverse?</h2>
+        <ul>
+          <li>Futuristic digital library experience</li>
+          <li>Explore books like stars in a galaxy</li>
+          <li>Elegant design with a cosmic touch</li>
+          <li>Borrow, browse, and connect effortlessly</li>
+        </ul>
+      </div>
+
+      <div class="about-quote">
+        “In the vast universe of knowledge, Inkverse is where stories find their orbit.”
+      </div>
+    </div>
+  </section>
+  <script>
+
+    window.addEventListener('scroll', function () {
+      const header = document.querySelector('header');
+      const scrollPos = window.scrollY || document.documentElement.scrollTop;
+      if (scrollPos > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+ 
+    const hamburger = document.querySelector('.hamburger');
+    const nav = document.querySelector('nav');
+    const navOverlay = document.querySelector('.nav-overlay');
+    const navLinks = document.querySelectorAll('nav a');
+
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      nav.classList.toggle('active');
+      navOverlay.classList.toggle('active');
+      document.body.style.overflow = nav.classList.contains('active') ? 'hidden' : '';
+    });
+ 
+    navOverlay.addEventListener('click', closeMenu);
+    navLinks.forEach(link => link.addEventListener('click', closeMenu));
+
+    function closeMenu() {
+      hamburger.classList.remove('active');
+      nav.classList.remove('active');
+      navOverlay.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+ 
+    window.addEventListener('scroll', () => {
+      if (window.innerWidth <= 768) {
+        closeMenu();
+      }
+    });
+
+  </script>
+  <footer>
+    <p>© 2026 Inkverse | Crafted with imagination & code</p>
+  </footer>
+
+
+</body>
+
+</html>
