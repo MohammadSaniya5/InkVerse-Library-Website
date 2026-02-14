@@ -31,11 +31,13 @@ InkVerse is a static website demonstrating:
 - Form-based borrowing flow (frontend only)
 
 ---
+## Status
+Live Demo: [link](https://mohammadsaniya5.github.io/InkVerse-Library-Website/)
+
+---
 
 ##  Future Enhancements
 Backend integration planned  
 Database connectivity for real-time management
 
----
-## Status
-Live Demo: [link][https://mohammadsaniya5.github.io/InkVerse-Library-Website/] 
+ 
