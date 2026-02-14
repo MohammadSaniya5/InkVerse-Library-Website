@@ -32,7 +32,7 @@ InkVerse is a static website demonstrating:
 
 ---
 ## Status
-Live Demo: [link](https://mohammadsaniya5.github.io/InkVerse-Library-Website/)
+Live Demo: [ InkVerse ](https://mohammadsaniya5.github.io/InkVerse-Library-Website/)
 
 ---
 
