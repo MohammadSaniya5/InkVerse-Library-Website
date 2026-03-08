@@ -333,6 +333,53 @@ nav a:hover {
   .hero p {
     font-size: 1rem;
   }
+
+  button,
+  .book-card button,
+  #enter-btn,
+  .contact-content button,
+  .modal-buttons button {
+    min-height: 40px;
+    min-width: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  html,
+  body {
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  nav a,
+  button,
+  .book-card,
+  .member-card {
+    transition: all 0.3s ease;
+  }
+
+  header.scrolled {
+    background: rgba(5, 4, 4, 0.95);
+    backdrop-filter: blur(10px);
+  }
+
+  .nav-overlay.active {
+    display: block;
+  }
+
+  .hamburger {
+    position: absolute;
+    top: 18px;
+    right: 20px;
+    display: flex;
+    margin: 0;
+    padding: 5px;
+  }
+
+  header {
+    position: relative;
+  }
 }
 
 .books-section {
@@ -926,26 +973,6 @@ nav a:hover {
   box-shadow: 0 0 8px #5BC0EB;
 }
 
-@media (max-width: 768px) {
-  header {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  nav a {
-    display: inline-block;
-    margin: 10px;
-  }
-
-  .hero h1 {
-    font-size: 2.2rem;
-  }
-
-  .hero p {
-    font-size: 1rem;
-  }
-}
-
 .books-section {
   padding: 120px 60px;
   text-align: center;
@@ -1342,7 +1369,8 @@ footer {
   margin-top: 15px;
   color: #F38FFF;
   font-weight: 600;
-} 
+}
+
 .hamburger {
   display: none;
   flex-direction: column;
@@ -1361,7 +1389,7 @@ footer {
   transition: 0.3s;
   border-radius: 2px;
 }
- 
+
 .hamburger.active span:nth-child(1) {
   transform: rotate(-45deg) translate(-5px, 6px);
 }
@@ -1373,9 +1401,9 @@ footer {
 .hamburger.active span:nth-child(3) {
   transform: rotate(45deg) translate(-5px, -6px);
 }
- 
+
 @media (max-width: 480px) {
- 
+
   header {
     flex-direction: row;
     justify-content: space-between;
@@ -1389,7 +1417,8 @@ footer {
     padding-left: 0;
     min-width: 120px;
     order: 1;
-  } 
+  }
+
   .hamburger {
     display: flex;
     padding: 3px;
@@ -1406,7 +1435,7 @@ footer {
     height: 2.5px;
     margin: 2.5px 0;
   }
- 
+
   nav {
     position: fixed;
     top: 0;
@@ -1439,7 +1468,7 @@ footer {
   nav a::after {
     display: none;
   }
- 
+
   .hero {
     padding-top: 0px;
     height: calc(100vh - 100px);
@@ -1459,7 +1488,7 @@ footer {
     padding: 10px 25px;
     font-size: 0.9rem;
   }
- 
+
   .books-section {
     padding: 80px 15px 40px;
   }
@@ -1508,7 +1537,7 @@ footer {
     padding: 5px 10px;
     width: auto;
   }
- 
+
   .about-section {
     padding: 80px 15px 40px;
   }
@@ -1539,7 +1568,7 @@ footer {
   .about-box ul {
     font-size: 0.9rem;
   }
- 
+
   .contact-section {
     padding: 80px 15px 40px;
   }
@@ -1563,7 +1592,7 @@ footer {
     padding: 10px 25px;
     font-size: 0.9rem;
   }
- 
+
   .members-section {
     padding: 80px 15px 40px;
     overflow-x: auto !important;
@@ -1582,7 +1611,7 @@ footer {
   td {
     padding: 6px;
   }
- 
+
   .clear-btn {
     padding: 8px 14px;
     font-size: 0.85rem;
@@ -1605,7 +1634,7 @@ footer {
   .member-card p {
     font-size: 0.85rem;
   }
- 
+
   .modal-content {
     width: 85%;
     max-width: 280px;
@@ -1626,7 +1655,7 @@ footer {
   .modal-buttons button {
     width: 100%;
   }
- 
+
   #toast {
     min-width: 200px;
     bottom: 15px;
@@ -1635,7 +1664,7 @@ footer {
     font-size: 0.85rem;
     padding: 12px;
   }
- 
+
   body.home-page footer {
     position: relative;
     padding: 15px 0;
@@ -1707,7 +1736,7 @@ footer {
   .hero p {
     font-size: 1rem;
   }
- 
+
   .books-section {
     padding: 100px 25px 50px;
   }
@@ -1726,7 +1755,7 @@ footer {
     gap: 20px;
     justify-items: center;
   }
- 
+
   .book-card {
     display: flex;
     flex-direction: column;
@@ -1735,8 +1764,8 @@ footer {
     background: rgba(255, 255, 255, 0.05);
     border-radius: 10px;
     padding: 15px;
-    width: 200px; 
-    height: 100%; 
+    width: 200px;
+    height: 100%;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
   }
@@ -1745,11 +1774,11 @@ footer {
     transform: translateY(-5px);
     box-shadow: 0 0 15px rgba(91, 192, 235, 0.5);
   }
- 
+
   .book-card img {
     width: 100%;
     height: 100%;
-    object-fit: cover; 
+    object-fit: cover;
     border-radius: 8px;
     margin-bottom: 10px;
   }
@@ -1793,7 +1822,7 @@ footer {
   .about-box {
     padding: 18px;
   }
- 
+
   .contact-section {
     padding: 100px 25px 50px;
   }
@@ -1802,7 +1831,7 @@ footer {
     padding: 25px;
     margin: 0 15px;
   }
- 
+
   .members-section {
     padding: 80px 3%;
   }
@@ -1830,9 +1859,10 @@ footer {
   .member-card {
     padding: 20px;
   }
-} 
+}
+
 @media (min-width: 769px) and (max-width: 1024px) {
- 
+
   header {
     padding: 20px 35px;
     gap: 20rem;
@@ -1842,7 +1872,7 @@ footer {
     font-size: 1.7rem;
     min-width: 140px;
   }
- 
+
   .hamburger {
     display: none;
   }
@@ -1871,7 +1901,7 @@ footer {
   nav a::after {
     display: block;
   }
- 
+
   .books-section {
     padding: 110px 40px 60px;
   }
@@ -1884,15 +1914,15 @@ footer {
   .book-card img {
     height: 240px;
   }
- 
+
   .about-section {
     padding: 110px 40px 60px;
   }
- 
+
   .contact-section {
     padding: 110px 40px 60px;
   }
- 
+
   .members-section {
     padding: 110px 40px 60px;
   }
@@ -1902,7 +1932,7 @@ footer {
     gap: 25px;
   }
 }
- 
+
 @media (min-width: 1025px) and (max-width: 1440px) {
   header {
     gap: 25rem;
@@ -1927,7 +1957,7 @@ footer {
     padding: 120px 50px 70px;
   }
 }
- 
+
 @media (min-width: 1441px) {
   header {
     gap: 30rem;
@@ -1961,89 +1991,68 @@ footer {
     max-width: 800px;
   }
 }
- 
-@media (max-width: 768px) {
-
-  button,
-  .book-card button,
-  #enter-btn,
-  .contact-content button,
-  .modal-buttons button {
-    min-height: 40px;
-    min-width: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-}
- 
-@media (max-width: 768px) {
-
-  html,
-  body {
-    overflow-x: hidden;
-    position: relative;
-  }
-}
- 
-@media (max-width: 768px) {
-
-  nav a,
-  button,
-  .book-card,
-  .member-card {
-    transition: all 0.3s ease;
-  }
-}
 
 @media (max-width: 480px) {
   .search-bar {
     margin: 20px auto;
   }
-}
-
-@media (max-width: 480px) {
 
   .about-content,
   .contact-content,
   .member-card {
     margin: 0 auto;
   }
-}
 
-@media (max-width: 768px) {
-  header.scrolled {
-    background: rgba(5, 4, 4, 0.95);
-    backdrop-filter: blur(10px);
-  }
-}
-
-@media (max-width: 768px) {
-  .nav-overlay.active {
-    display: block;
-  }
-}
-
-@media (max-width: 768px) {
-  .hamburger {
-    position: absolute;
-    top: 18px;
-    right: 20px;
+  .book-card {
     display: flex;
-    margin: 0;
-    padding: 5px;
+    flex-direction: column;
+    align-items: center;
   }
 
-  header {
-    position: relative;
+  .book-card button {
+    width: 60px;
+    margin: 6px 0;
+    text-align: center;
   }
-}
 
-@media (max-width: 480px) {
   .hamburger {
     top: 15px;
     right: 15px;
   }
 
+  .contact-section {
+    padding-top: 1px;
+  }
+
+
+}
+
+@media (max-width:768px) {
+
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 18px;
+    gap: 0;
+  }
+
+  .logo {
+    font-size: 1.4rem;
+    padding-left: 0;
+    margin-right: auto;
+    text-align: left;
+    margin-top: 10px;
+  }
+
+  .hamburger {
+    position: absolute;
+    right: 18px;
+    top: 18px;
+  }
+
+  nav {
+    margin-top: 60px;
+  }
 
 }
