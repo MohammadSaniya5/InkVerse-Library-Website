@@ -107,7 +107,6 @@
     <p>All readers who borrowed books from Inkverse </p>
 
     <div id="tableContainer"></div>
-    <button class="clear-btn" id="clearAll">Clear All Members</button>
   </section>
 
   <script>
@@ -133,8 +132,7 @@
                         <th>Email</th>
                         <th>Book Title</th>
                         <th>Borrow Date</th>
-                        <th>Return Date</th>
-                        <th>Action</th>
+                        <th>Return Date</th> 
                     </tr>
                 </thead>
                 <tbody>
@@ -149,34 +147,14 @@
                     <td>${record.bookTitle}</td>
                     <td>${record.borrowDate}</td>
                     <td>${record.returnDate}</td>
-                    <td><button class="delete-btn" onclick="deleteMember(${index})">Delete</button></td>
+                     
                 </tr>
             `;
         });
 
         tableHTML += `</tbody></table>`;
         tableContainer.innerHTML = tableHTML;
-        const clearBtn = document.getElementById("clearAll");
-        if (clearBtn) clearBtn.style.display = "inline-block";
-      }
 
-      window.deleteMember = function (index) {
-        const records = JSON.parse(localStorage.getItem("borrowRecords")) || [];
-        const removed = records.splice(index, 1);
-        localStorage.setItem("borrowRecords", JSON.stringify(records));
-        showPopup(`Removed ${removed[0].name}'s record`);
-        loadMembers();
-      }
-
-      const clearBtn = document.getElementById("clearAll");
-      if (clearBtn) {
-        clearBtn.addEventListener("click", () => {
-          if (confirm("Are you sure you want to remove all members?")) {
-            localStorage.removeItem("borrowRecords");
-            showPopup("🧹 All members cleared!");
-            loadMembers();
-          }
-        });
       }
 
       function showPopup(message) {
@@ -217,7 +195,7 @@
       loadMembers();
 
     });
- 
+
     const hamburger = document.querySelector('.hamburger');
     const nav = document.querySelector('nav');
     const navOverlay = document.querySelector('.nav-overlay');
@@ -229,7 +207,7 @@
       navOverlay.classList.toggle('active');
       document.body.style.overflow = nav.classList.contains('active') ? 'hidden' : '';
     });
- 
+
     navOverlay.addEventListener('click', closeMenu);
     navLinks.forEach(link => link.addEventListener('click', closeMenu));
 
@@ -239,7 +217,7 @@
       navOverlay.classList.remove('active');
       document.body.style.overflow = '';
     }
- 
+
     window.addEventListener('scroll', () => {
       if (window.innerWidth <= 768) {
         closeMenu();
